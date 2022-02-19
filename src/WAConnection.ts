@@ -7,11 +7,11 @@ class WAConnection {
   public sock: ReturnType<typeof makeWASocket>
 
   constructor () {
-    this.memoryStoreBackup()
+    this.makeMemoryStorage()
     this.connectToWhatsApp()
   }
 
-  private memoryStoreBackup (): void {
+  private makeMemoryStorage (): void {
     // The store maintains the data of the WA connection in memory.
     // Can be written out to a file & read from it.
     this.store = makeInMemoryStore({
