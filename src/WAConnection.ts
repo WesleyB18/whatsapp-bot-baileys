@@ -18,17 +18,17 @@ class WAConnection {
       logger: pino().child({ level: 'debug', stream: 'store' })
     })
     // Can be read from a file.
-    this.store.readFromFile('./src/tmp/tmp/baileys_store_multi.json')
+    this.store.readFromFile('./baileys_store_multi.json')
     // Saves the state to a file every 10s.
     setInterval(() => {
-      this.store.writeToFile('./src/tmp/baileys_store_multi.json')
+      this.store.writeToFile('./baileys_store_multi.json')
     }, 10000)
   }
 
   private connectToWhatsApp (): void {
     // Utility function to help save the auth state in a single file.
     // It's utility ends at demos -- as re-writing a large file over and over again is very inefficient.
-    const { state, saveState } = useSingleFileAuthState('./src/auth/auth_info_multi.json')
+    const { state, saveState } = useSingleFileAuthState('./auth_info_multi.json')
     // Will use the given state to connect.
     // So if valid credentials are available -- it'll connect without QR.
     this.sock = makeWASocket({
