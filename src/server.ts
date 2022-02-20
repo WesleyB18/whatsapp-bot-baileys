@@ -9,15 +9,15 @@ const bot = new Client()
  *  */
 
 bot.sock.ev.on('messages.upsert', async message => {
-  bot.message = message
+  bot.messages.upsert = message
 
-  const { messages, type } = bot.message
+  const { messages, type } = bot.messages.upsert
   const msg = messages[0]
 
   if (!msg.key.fromMe && type === 'notify') {
     console.log('replying to', messages[0].key.remoteJid)
     await bot.sock.sendReadReceipt(msg.key.remoteJid, msg.key.participant, [msg.key.id])
-    await bot.sendMessageWTyping(msg.key.remoteJid, { text: 'Hello there!' })
+    await bot.sendMessageWTyping(msg.key.remoteJid, { text: 'Olá, mundo!' })
   }
 })
 
