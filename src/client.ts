@@ -1,8 +1,27 @@
 import WAConnection from './WAConnection'
-import { WAMessage, BaileysEventMap, AuthenticationCreds, AnyMessageContent, MiscMessageGenerationOptions, delay } from '@adiwajshing/baileys'
+import {
+  WAMessage,
+  BaileysEventMap,
+  AuthenticationCreds,
+  AnyMessageContent,
+  MiscMessageGenerationOptions,
+  delay
+} from '@adiwajshing/baileys'
+
+declare type Messages<Creds> = {
+  set?: BaileysEventMap<Creds>['messages.set'];
+  delete?: BaileysEventMap<Creds>['messages.delete'];
+  update?: BaileysEventMap<Creds>['messages.update'];
+  upsert?: BaileysEventMap<Creds>['messages.upsert'];
+}
 
 class Client extends WAConnection {
-  public message: BaileysEventMap<AuthenticationCreds>['messages.upsert']
+  public messages: Messages<AuthenticationCreds>
+
+  constructor () {
+    super()
+    this.messages = {}
+  }
 
   public async sendMessageWTyping (
     remoteJid: string,
